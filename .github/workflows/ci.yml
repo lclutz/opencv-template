@@ -33,14 +33,17 @@ jobs:
           cmake ..
           cmake --build .
 
-  build-macos:
-    runs-on: macOS-latest
-    steps:
-      - uses: actions/checkout@v3
-      - name: install dependencies
-        run: brew install opencv
-      - name: build
-        run: |
-          mkdir build && cd build
-          cmake ..
-          cmake --build .
+  # TODO: The MacOS build is annoyingly slow. Installing OpenCV with homebrew
+  # takes forever.
+  #
+  # build-macos:
+  #   runs-on: macOS-latest
+  #   steps:
+  #     - uses: actions/checkout@v3
+  #     - name: install dependencies
+  #       run: brew install opencv
+  #     - name: build
+  #       run: |
+  #         mkdir build && cd build
+  #         cmake ..
+  #         cmake --build .
