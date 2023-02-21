@@ -21,3 +21,9 @@ Linux (Ubuntu/Debian):
 ```shell
 sudo apt install libopencv-dev
 ```
+
+MacOS:
+
+```shell
+brew install opencv
+```
