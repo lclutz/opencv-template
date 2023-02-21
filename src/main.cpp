@@ -3,7 +3,7 @@
 
 #include "logging.h"
 
-int main(int argc, char **argv)
+int main(void)
 {
     logi("Starting");
 
