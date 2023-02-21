@@ -1,10 +1,10 @@
 #pragma once
 
-#include <format>
-#include <stdio.h>
 #include <string>
 #include <iostream>
 #include <string_view>
+
+#include "fmt/core.h"
 
 #if WIN32
 #define WIN32_LEAN_AND_MEAN
@@ -20,37 +20,38 @@ enum LogLevel
 
 static LogLevel LOG_LEVEL = LOG_INFO;
 
-static void log(std::string_view message) {
-    std::cerr << message;
+static void log(const std::string &message)
+{
+    fmt::print(stderr, message);
 #if WIN32
     OutputDebugStringA(std::string(message).c_str());
 #endif
 }
 
 template <typename... Args>
-void log(std::string_view prefix, std::string_view fmt, Args&&... args)
+void log(const std::string &prefix, const std::string &fmt, const Args&... args)
 {
-    log(std::vformat(std::format("[{}]: {}\n", prefix, fmt), std::make_format_args(args...)));
+    log(fmt::format(fmt::format("[{}]: {}\n", prefix, fmt), args...));
 }
 
-template <typename... Args>
-void logi(std::string_view fmt, Args&&... args)
+template <typename T, typename... Args>
+void logi(const T &fmt, const Args&... args)
 {
     if (LOG_LEVEL >= LOG_INFO) {
         log("INFO", fmt, args...);
     }
 }
 
-template <typename... Args>
-void logw(std::string_view fmt, Args&&... args)
+template <typename T, typename... Args>
+void logw(const T &fmt, const Args&... args)
 {
     if (LOG_LEVEL >= LOG_WARNING) {
         log("WARNING", fmt, args...);
     }
 }
 
-template <typename... Args>
-void loge(std::string_view fmt, Args&&... args)
+template <typename T, typename... Args>
+void loge(const T &fmt, const Args&... args)
 {
     if (LOG_LEVEL >= LOG_ERROR) {
         log("ERROR", fmt, args...);
