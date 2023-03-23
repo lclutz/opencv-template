@@ -22,7 +22,7 @@ static void log(const std::string &message)
 {
     fmt::print(stderr, message);
 #if _WIN32
-    OutputDebugStringA(std::string(message).c_str());
+    OutputDebugStringW(std::wstring(message.begin(), message.end()).c_str());
 #endif
 }
 
